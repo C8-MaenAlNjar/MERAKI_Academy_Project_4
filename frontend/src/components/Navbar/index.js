@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { UserContext } from "../../App";
+import './style.css'
 
 const NavBar = ({ isLog, logout }) => {
   const navigate = useNavigate();
   const  user  = useContext(UserContext);
   const location = useLocation();
+
+console.log('id',user);
 
   const handleLogout = () => {
     logout();
@@ -14,10 +17,16 @@ const NavBar = ({ isLog, logout }) => {
 
   return (
     <nav>
-      {location.pathname === "/dashboard" && (
-        <button onClick={handleLogout}>Lougout</button>
-      )}
-    </nav>
+    
+    <a href="/">Home</a>
+    <a href="/dashboard">Dashboard</a>
+    
+    
+    {user && location.pathname === "/dashboard" && (
+      <button onClick={handleLogout}>Logout</button>
+    )}
+  </nav>
+
   );
 };
 

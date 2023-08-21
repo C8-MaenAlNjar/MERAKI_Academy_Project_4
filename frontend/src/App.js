@@ -23,11 +23,15 @@ function App() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
+
 const logout =()=>{
   localStorage.clear();
   setUser(null)
   navigate('/login')
 }
+
+
+
 
   return (
     <UserContext.Provider value={{user,setUser}}>

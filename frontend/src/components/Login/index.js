@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../../App";
+import './style.css'
 
 const Login = () => {
   const navigate = useNavigate();
@@ -22,8 +23,8 @@ const Login = () => {
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", response.data.user);
-        userContext.setUser(response.data.user);
-        console.log("User:", response.data);
+        userContext.setUser(response.data.userId);
+        console.log("respon:", response);
         console.log("User:", response.data.token);
         navigate("/dashboard");
       }
@@ -34,7 +35,7 @@ const Login = () => {
   return (
     <div className="login-container">
       <h1>Login</h1>
-      <form className="login-form" onSubmit={(e)=>{handlLogin(e)}}>
+      <form className="login-form" onSubmit={(e) => handlLogin(e)}>
         <input
           type="email"
           className="login-input"
