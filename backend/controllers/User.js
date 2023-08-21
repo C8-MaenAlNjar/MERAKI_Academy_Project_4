@@ -55,6 +55,7 @@ console.log(user.role)
         success: true,
         message: "Valid login credentials",
         token: token,
+        userId:user._id
       });
     } 
     }catch (error) {

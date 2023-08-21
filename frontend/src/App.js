@@ -25,6 +25,7 @@ function App() {
 
 
 const logout =()=>{
+  console.log("out");
   localStorage.clear();
   setUser(null)
   navigate('/login')
@@ -35,7 +36,7 @@ const logout =()=>{
 
   return (
     <UserContext.Provider value={{user,setUser}}>
-   <Navbar isLog={!!user} logout={logout} />
+   <Navbar  logout={logout} />
       <Routes>
         <Route path="/" element={<Main />}/>
         <Route path="/login" element={<Login />} />

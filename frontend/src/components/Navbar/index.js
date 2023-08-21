@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation ,Link } from "react-router-dom";
 import { UserContext } from "../../App";
 import './style.css'
 
@@ -18,12 +18,18 @@ console.log('id',user);
   return (
     <nav>
     
-    <a href="/">Home</a>
-    <a href="/dashboard">Dashboard</a>
+    
+   
     
     
     {user && location.pathname === "/dashboard" && (
-      <button onClick={handleLogout}>Logout</button>
+        <>
+       
+        <Link to='/dashboard'>Dashboard</Link>
+         <button onClick={handleLogout}>Logout</button>
+         
+                 </>
+     
     )}
   </nav>
 
