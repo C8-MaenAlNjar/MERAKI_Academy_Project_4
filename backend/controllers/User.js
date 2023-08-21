@@ -13,12 +13,12 @@ const register = async (req, res) => {
       password,
       email,
       name,
-      role:"64e2696ee4b8822f946da1b3"
+      role:"64e3a5a56db76b6a270bfc3d"
     });
     await user.save();
     res.json({ message: "user registered successfully" });
   } catch (error) {
-    res.status(500).json({ error: "Registraion failed", error: error.message });
+    res.status(500).json({ error: "Registraion failed", message: error.message });
   }
 };
 
@@ -38,7 +38,7 @@ const login = async (req, res) => {
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (passwordMatch) {
-
+console.log(user.role)
         const role =await Role.findById(user.role)
 
       const payload = {
@@ -50,22 +50,18 @@ const login = async (req, res) => {
         }
       };
 
-      const token = jwt.sign(payload, process.env.SECRET, { expiresIn: "10h" });
+      const token = jwt.sign(payload, process.env.SECRET, { expiresIn: "60m" });
       return res.status(200).json({
         success: true,
         message: "Valid login credentials",
         token: token,
       });
-    } else {
-      return res.status(403).json({
-        success: false,
-        message: "The email doesn’t exist or the password you’ve entered is incorrect",
-      });
-    }
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Server Error", error: error.message });
+    } 
+    }catch (error) {
+      res.status(500).json({ success: false, message: "Server Error", error: error.message });
+  } 
   }
-};
+
 
 module.exports = {
   register,
