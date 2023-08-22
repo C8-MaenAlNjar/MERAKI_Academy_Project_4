@@ -25,7 +25,7 @@ function App() {
 
 
 const logout =()=>{
-  console.log("out");
+  
   localStorage.clear();
   setUser(null)
   navigate('/login')

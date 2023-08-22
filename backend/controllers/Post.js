@@ -81,7 +81,7 @@ const postId = async (req, res) => {
         post,
       });
     } else {
-      return res.status(404).json({
+      return res.status(500).json({
         success: false,
         message: `The post with id => ${postId} not found`,
       });

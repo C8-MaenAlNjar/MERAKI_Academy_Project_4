@@ -25,7 +25,7 @@ const Login = () => {
         localStorage.setItem("user", response.data.user);
         userContext.setUser(response.data.userId);
         console.log("respon:", response);
-        console.log("User:", response.data.token);
+       
         navigate("/dashboard");
       }
     } catch (err) {

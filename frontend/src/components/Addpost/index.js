@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
 import axios from "axios";
+import{ UserContext } from '../../App'
 import './style.css'
-const AddPost = ({ token }) => {
+
+
+
+const AddPost = () => {
+  const userContext = useContext(UserContext)
   const [post, setPost] = useState({
     Image: "",
     description: "",
@@ -11,7 +16,10 @@ const AddPost = ({ token }) => {
   const handleChange = async (e) => {
     e.preventDefault();
 
+    const token =localStorage.getItem('token')
+
     try {
+      console.log(UserContext.token);
       const response = await axios.post(
         'http://localhost:5000/addpost',
         post,
