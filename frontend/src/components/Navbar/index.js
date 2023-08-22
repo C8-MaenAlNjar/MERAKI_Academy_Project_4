@@ -24,7 +24,7 @@ console.log('id',user);
     
     {user && location.pathname === "/dashboard" && (
         <>
-       
+        <Link to='/addpost'>Add Post</Link>
         <Link to='/dashboard'>Dashboard</Link>
          <button onClick={handleLogout}>Logout</button>
          
