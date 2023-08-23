@@ -8,16 +8,15 @@ const Dashboard = () => {
   const user = useContext(UserContext);
   const navigate = useNavigate();
   const [posts, setPost] = useState([]);
+  
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     if (!user.user) {
-     
       navigate("/login");
-      return; 
+      return;
     }
-
 
     const showPost = async () => {
       try {
@@ -45,23 +44,32 @@ const Dashboard = () => {
       });
       setPost(posts.filter((post) => post._id !== postId));
     } catch (error) {
-      console.log("Error deleting post", error.response.data);
+      console.log("Error deleting post", error.response);
     }
   };
 
-  const handleEdit = async (postId,updatedData)=>{
-    try{
-      const token =localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/post/${postId}`, {
+  const handleEdit = async (postId,updatedData) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const formData = new FormData();
+      formData.append("image", updatedData.image);
+      formData.append("description", updatedData.description);
+      await axios.put(`http://localhost:5000/updatepost/${postId}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       setPost((prevPosts) =>
-        prevPosts.map((post) => (post._id === postId ? { ...post, ...updatedData } : post))
-      ); 
-    }catch(s){s}
-  }
+        prevPosts.map((post) =>
+          post._id === postId ? { ...post, ...updatedData } : post
+        )
+      );
+      
+    } catch (error) {
+      console.log("error", error.response);
+    }
+  };
   return (
     <div className="center-content">
       {posts.map((post) => (
@@ -75,7 +83,24 @@ const Dashboard = () => {
           {user.user === post.author && (
             <div className="post-buttons">
               <button onClick={() => handleDelete(post._id)}>Delete</button>
-              <button>Edit</button>
+              <button onClick={() => handleEdit(post._id)}>Edit</button>
+              <input
+                type="file"
+                onChange={(e) =>
+                  handleEdit(post._id,{
+                    ...post,image:e.target.files[0],
+                  })
+                }
+              />
+              <textarea
+                placeholder="New Description"
+                value={post.description}
+                onChange={(e) =>
+                  handleEdit(post._id,{
+                    ...post,image:e.target.value,
+                  })
+                }
+              />
             </div>
           )}
         </ul>
