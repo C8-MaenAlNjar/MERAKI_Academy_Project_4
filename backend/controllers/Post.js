@@ -1,21 +1,32 @@
 const Post = require("../models/Post");
 
 
+
 const addPost = async (req, res) => {
   const { image, description } = req.body;
   const authorId = req.token.userId;
+  const username=req.token.name
+  console.log("image:", image);
+  console.log("description:", description);
+  console.log("authorId:", authorId);
+  console.log("username:", username);
   try {
     const newPost = new Post({
       image,
       description,
-      author:authorId
+      username:username,
+      author:authorId,
+      
     });
+    console.log("usus:", newPost);
     await newPost.save();
     return res.status(201).json({
       success: true,
       message: " created",
       posts: newPost,
+    
     });
+    
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -44,7 +55,7 @@ const showPost = async (req, res) => {
 
 const postUser = async (req, res) => {
   const authorId = req.query.author;
-  console.log(req.query.author);
+  
   try {
     const posts = await Post.find({ author: authorId });
     if (posts.length > 0) {

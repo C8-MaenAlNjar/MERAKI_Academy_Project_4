@@ -1,34 +1,33 @@
-import React, { useState ,useContext} from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
-import{ UserContext } from '../../App'
-import './style.css'
-
-
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../App";
+import "./style.css";
 
 const AddPost = () => {
-  const userContext = useContext(UserContext)
+  const userContext = useContext(UserContext);
+  const navigate = useNavigate();
   const [post, setPost] = useState({
     Image: "",
     description: "",
-   
   });
 
   const handleChange = async (e) => {
     e.preventDefault();
 
-    const token =localStorage.getItem('token')
+    const token = localStorage.getItem("token");
 
     try {
-      console.log(UserContext.token);
       const response = await axios.post(
-        'http://localhost:5000/addpost',
+        "http://localhost:5000/addpost",
         post,
         {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 
       console.log("Response:", response.data);
+      navigate("/dashboard"); 
     } catch (error) {
       console.log("Error:", error);
     }
@@ -43,7 +42,7 @@ const AddPost = () => {
           placeholder="Image URL"
           value={post.Image}
           onChange={(e) =>
-            setPost((prevPost) => ({ ...prevPost, Image: e.target.value }))
+            setPost({ ...post, Image: e.target.value })
           }
         />
         <textarea
@@ -51,11 +50,9 @@ const AddPost = () => {
           placeholder="Description"
           value={post.description}
           onChange={(e) =>
-            setPost((prevPost) => ({ ...prevPost, description: e.target.value }))
+            setPost({ ...post, description: e.target.value })
           }
         />
-       
-        
         <button type="submit">Create New Post</button>
       </form>
     </div>

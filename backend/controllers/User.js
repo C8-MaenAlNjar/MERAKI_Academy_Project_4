@@ -13,7 +13,7 @@ const register = async (req, res) => {
       password,
       email,
       name,
-      role:"64e5048e5756da0738a31e60"
+      role:"64e58a236033a83c0d509db4"
     });
     await user.save();
     res.json({ message: "user registered successfully" });

@@ -14,7 +14,7 @@ postRouter.post('/addpost',  authentication,authorization('CREATE_COMMENTS'),add
 postRouter.get('/posts/author',postUser)
 postRouter.get('/posts/:id',postId)
 postRouter.put('/updatepost/:id',updateById)
-postRouter.delete('/:id/author',deleteById)
+postRouter.delete('/post/:id',deleteById)
 postRouter.post('/comments/:id',authentication,authorization('CREATE_COMMENTS'),createComment )
 
 
