@@ -49,6 +49,19 @@ const Dashboard = () => {
     }
   };
 
+  const handleEdit = async (postId,updatedData)=>{
+    try{
+      const token =localStorage.getItem("token");
+      await axios.delete(`http://localhost:5000/post/${postId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setPost((prevPosts) =>
+        prevPosts.map((post) => (post._id === postId ? { ...post, ...updatedData } : post))
+      ); 
+    }catch(s){s}
+  }
   return (
     <div className="center-content">
       {posts.map((post) => (

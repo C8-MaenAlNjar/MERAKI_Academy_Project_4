@@ -21,7 +21,7 @@ function App() {
 
 
   const [user, setUser] = useState(null);
-  const[token,setToken]=useState(null)
+  
   const Navigate = useNavigate();
 
 
@@ -39,8 +39,8 @@ const logout =()=>{
     <UserContext.Provider value={{user,setUser}}>
    <Navbar  logout={logout} />
       <Routes>
-      
-        <Route path="/HomePage" element={<HomePage />}/>
+     
+        <Route path="/" element={<HomePage />}/>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />

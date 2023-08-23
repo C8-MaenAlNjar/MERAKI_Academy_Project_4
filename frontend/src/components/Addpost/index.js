@@ -17,6 +17,8 @@ const AddPost = () => {
 
     const token = localStorage.getItem("token");
 
+
+
     try {
       const response = await axios.post(
         "http://localhost:5000/addpost",
@@ -37,14 +39,22 @@ const AddPost = () => {
     <div className="add-post-container">
       <form className="add-post-form" onSubmit={handleChange}>
         <input
-          type="text"
-          name="Image"
+          type="file"
+          name="image"
           placeholder="Image URL"
-          value={post.Image}
           onChange={(e) =>
-            setPost({ ...post, Image: e.target.value })
+            setPost({ ...post, Imagemage: e.target.files[0] })
           }
         />
+        {post.Image?(
+          <img 
+          src={URL.creatObjectURL(post.Image)}
+          alt=""
+          className="userImage"/>
+        ):( <img 
+          src="/OIP.jpeg"
+          alt="didnt work"
+          className="userImage"/>)}
         <textarea
           name="description"
           placeholder="Description"
