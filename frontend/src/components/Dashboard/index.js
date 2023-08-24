@@ -7,18 +7,26 @@ import "./style.css";
 const Dashboard = () => {
   const user = useContext(UserContext);
   const navigate = useNavigate();
-  const [posts, setPost] = useState([]);
-  
+  const [posts, setPosts] = useState([]);
+  const [editedPostId, setEditedPostId] = useState(null);
+  const [newImage, setNewImage] = useState(null);
+  const [newDescription, setNewDescription] = useState("");
+  const [newComment, setNewComment] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-
+    const editedData = JSON.parse(localStorage.getItem("editedData"));
+    if (editedData) {
+      setEditedPostId(editedData.editedPostId);
+      setNewImage(editedData.newImage);
+      setNewDescription(editedData.newDescription);
+    }
     if (!user.user) {
       navigate("/login");
       return;
     }
 
-    const showPost = async () => {
+    const showPosts = async () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get("http://localhost:5000/posts", {
@@ -27,13 +35,14 @@ const Dashboard = () => {
           },
         });
         console.log(response.data);
-        setPost(response.data.posts);
+        setPosts(response.data.posts);
       } catch (error) {
-        console.log("Eror", error.response.data);
+        console.log("Error", error.response.data);
       }
     };
-    showPost();
+    showPosts();
   }, [user]);
+
   const handleDelete = async (postId) => {
     try {
       const token = localStorage.getItem("token");
@@ -42,70 +51,145 @@ const Dashboard = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setPost(posts.filter((post) => post._id !== postId));
+      setPosts(posts.filter((post) => post._id !== postId));
     } catch (error) {
       console.log("Error deleting post", error.response);
     }
   };
 
-  const handleEdit = async (postId,updatedData) => {
+  const handleEditClick = (postId) => {
+    setEditedPostId(postId);
+    setNewImage(null);
+    setNewDescription("");
+  };
+
+  const handleEdit = async (postId) => {
     try {
       const token = localStorage.getItem("token");
 
       const formData = new FormData();
-      formData.append("image", updatedData.image);
-      formData.append("description", updatedData.description);
-      await axios.put(`http://localhost:5000/updatepost/${postId}`, formData, {
+      formData.append("image", newImage);
+      formData.append("description", newDescription);
+      const response=await axios.put(`http://localhost:5000/updatepost/${postId}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setPost((prevPosts) =>
+console.log("usus",response);
+      setPosts((prevPosts) =>
         prevPosts.map((post) =>
-          post._id === postId ? { ...post, ...updatedData } : post
+          post._id === postId
+            ? { ...post, image: newImage, description: newDescription }
+            : post
         )
       );
-      
+
+      setEditedPostId(null);
+      setNewImage(null);
+      setNewDescription("");
     } catch (error) {
-      console.log("error", error.response);
+      console.log("Error", error.response);
     }
   };
+
+  const handleAddComment = async (postId) => {
+    try {
+      console.log(postId);
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        `http://localhost:5000/comments/${postId}`,
+        {
+          comment: newComment,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          post._id === postId
+            ? { ...post, comments: [...post.comments, response.data.comment] }
+            : post
+        )
+      );
+
+      setNewComment("");
+    } catch (error) {
+      console.log("Error", error.response);
+    }
+  };
+
   return (
     <div className="center-content">
-      {posts.map((post) => (
-        <ul className="post" key={post._id}>
-          <p className="username">{post.username}</p>
-          <img src={post.image} alt="post" />
-
+    {posts.map((post) => (
+      <ul className="post" key={post._id}>
+        <p className="username">{post.username}</p>
+        <li className="comments">
+          {post.comments.map((comment) => (
+            <p key={comment._id} className="comment">
+              {comment.comment}
+            </p>
+          ))}
+        </li>
+        <img src={post.image} alt="post" />
+        {editedPostId === post._id ? (
+          <div className="post-buttons">
+            <input
+              type="file"
+              className="file-input" 
+              onChange={(e) => setNewImage(e.target.files[0])}
+            />
+            <textarea
+              className="new-description" 
+              placeholder="New Description"
+              value={newDescription}
+              onChange={(e) => setNewDescription(e.target.value)}
+            />
+            <button className="save" onClick={() => handleEdit(post._id)}>
+              Save
+            </button>
+          </div>
+        ) : (
           <p className="post-description">{post.description}</p>
-
-          <p>{console.log(user.user === post.author)}</p>
-          {user.user === post.author && (
-            <div className="post-buttons">
-              <button onClick={() => handleDelete(post._id)}>Delete</button>
-              <button onClick={() => handleEdit(post._id)}>Edit</button>
-              <input
-                type="file"
-                onChange={(e) =>
-                  handleEdit(post._id,{
-                    ...post,image:e.target.files[0],
-                  })
-                }
-              />
-              <textarea
-                placeholder="New Description"
-                value={post.description}
-                onChange={(e) =>
-                  handleEdit(post._id,{
-                    ...post,image:e.target.value,
-                  })
-                }
-              />
-            </div>
-          )}
-        </ul>
-      ))}
-    </div>
+        )}
+        {user.user === post.author && (
+          <div className="post-buttons">
+            <button
+              className="delete" 
+              onClick={() => handleDelete(post._id)}
+            >
+              Delete
+            </button>
+            <button
+              className="edit" 
+              onClick={() => handleEditClick(post._id)}
+            >
+              Edit
+            </button>
+          </div>
+        )}
+        
+        <li className="add-comment">
+          <textarea
+            className="comment-input" 
+            placeholder="Add a comment"
+            value={newComment[post._id]}
+            onChange={(e) => setNewComment(e.target.value)}
+          />
+          <button
+            className="add-comment-button"
+            onClick={() => handleAddComment(post._id)}
+          >
+            Add Comment
+          </button>
+        </li>
+      </ul>
+    ))}
+  </div>
+  
   );
 };
 

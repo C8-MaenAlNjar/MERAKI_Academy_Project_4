@@ -1,71 +1,101 @@
-/* style.css */
+/* dashboard-style.css */
 
 .center-content {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
   padding: 20px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Reduced box shadow */
+  max-width: 800px; /* Set a maximum width */
+  margin: 0 auto; /* Horizontally center the container */
 }
 
 .post {
   background-color: white;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin: 10px;
-  width: 80%;
-  max-width: 600px;
-  display: flex;
-  flex-direction: column;
+  border-radius: 10px;
+  padding: 15px; /* Increased padding */
+  margin: 10px 0;
+  width: 100%;
+}
+
+.username {
+  font-weight: bold;
+  margin: 0;
+  color: #000000; /* Facebook blue */
+}
+
+.comments {
+  list-style: none;
+  padding: 0;
+}
+
+.comment {
+  color: #fff9f9;
+  margin: 5px 0;
 }
 
 .post img {
   max-width: 100%;
   height: auto;
-  margin-bottom: 10px;
-  border-radius: 50%;
-}
-
-.post-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.username {
-  font-size: 16px;
-  font-weight: bold;
-  margin-left: 10px;
-}
-
-.post-description {
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-
-.user-info {
-  font-size: 12px;
-  color: #888;
-  margin-bottom: 5px;
-}
-
-.post-buttons {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
 }
 
 .post-buttons button {
-  background-color: #000000;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.post-buttons button.delete {
+  background-color: #060606;
+}
+
+.post-buttons button.edit,
+.post-buttons button.save {
+  background-color: #101011; /* Facebook blue */
+}
+
+.post-buttons button:hover {
+  background-color: #1e1f1f; /* Darker Facebook blue on hover */
+  color: white;
+}
+
+.post-description {
+  color: #000;
+  margin-top: 10px;
+}
+
+.add-comment {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.comment-input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add-comment-button {
+  background-color: #0c0c0c; 
   color: white;
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
   margin-left: 10px;
   cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.post-buttons button:hover {
-  background-color: #1565c0;
+.add-comment-button:hover {
+  background-color: #7c7c7c; 
+  color: white;
 }

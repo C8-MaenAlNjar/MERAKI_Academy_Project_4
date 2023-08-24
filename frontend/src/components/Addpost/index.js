@@ -8,7 +8,7 @@ const AddPost = () => {
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
   const [post, setPost] = useState({
-    Image: "",
+    Image: '',
     description: "",
   });
 
@@ -43,7 +43,7 @@ const AddPost = () => {
           name="image"
           placeholder="Image URL"
           onChange={(e) =>
-            setPost({ ...post, Imagemage: e.target.files[0] })
+            setPost({ ...post, Image: e.target.files[0] })
           }
         />
         {post.Image?(
@@ -52,7 +52,7 @@ const AddPost = () => {
           alt=""
           className="userImage"/>
         ):( <img 
-          src="/OIP.jpeg"
+          src="https://images.pexels.com/photos/15114086/pexels-photo-15114086/free-photo-of-aerial-photography-of-people-on-concrete-dock.jpeg"
           alt="didnt work"
           className="userImage"/>)}
         <textarea
