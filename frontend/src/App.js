@@ -8,7 +8,7 @@ import HomePage from './components/Main'
 import { useNavigate } from 'react-router-dom';
 import Navbar from "./components/Navbar";
 import AddPost from './components/Addpost'
-
+import ProfilePage from './components/profilepage'
 
 
 
@@ -21,7 +21,7 @@ function App() {
 
 
   const [user, setUser] = useState(null);
-  
+  const [userInfo, setUserInfo] = useState(null);
   const Navigate = useNavigate();
 
 
@@ -36,7 +36,7 @@ const logout =()=>{
 
 
   return (
-    <UserContext.Provider value={{user,setUser}}>
+    <UserContext.Provider value={{user,setUser,userInfo,setUserInfo}}>
    <Navbar  logout={logout} />
       <Routes>
      
@@ -45,10 +45,11 @@ const logout =()=>{
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path='/addpost' element={<AddPost/>}/>
+        <Route path='/ProfilePage' element={<ProfilePage />}/>
       </Routes>
      
   </UserContext.Provider>
-  );
+  )
 }
 
 

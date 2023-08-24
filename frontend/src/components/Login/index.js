@@ -24,7 +24,11 @@ const Login = () => {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", response.data.user);
         userContext.setUser(response.data.userId);
-       
+        userContext.setUserInfo(response.data);
+        localStorage.setItem("userInfo", JSON.stringify(response.data));
+        console.log("userInfo:", JSON.stringify(response.data));
+
+
         navigate("/dashboard");
       }
     } catch (err) {

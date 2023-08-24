@@ -1,0 +1,36 @@
+.profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cover-photo {
+    height: 200px;
+    background-color: #242629; 
+}
+
+.main-section {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    margin-bottom: 10px;
+}
+
+h1 {
+    margin: 5px 0;
+    font-size: 24px;
+}
+
+p {
+    margin: 0;
+    color: #777;
+}

@@ -12,25 +12,27 @@ const Dashboard = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!user.user) {
-      navigate("/login");
+     if (!token) {
+     navigate("/login");
       return;
     }
 
-    const fetchPosts = async () => {
+    const showPosts = async () => {
       try {
         const response = await axios.get("http://localhost:5000/posts", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
+
+        console.log(response);
         setPosts(response.data.posts);
       } catch (error) {
         console.log("Error fetching posts", error.response.data);
       }
     };
 
-    fetchPosts();
+    showPosts();
   }, [user]);
 
   const handleDelete = async (postId) => {

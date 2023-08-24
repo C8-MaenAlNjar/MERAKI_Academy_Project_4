@@ -10,6 +10,7 @@ const addPost = async (req, res) => {
   console.log("description:", description);
   console.log("authorId:", authorId);
   console.log("username:", username);
+  console.log("Request Body:", req.body);
   try {
     const newPost = new Post({
       image,

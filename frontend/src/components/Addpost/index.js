@@ -48,11 +48,11 @@ const AddPost = () => {
         />
         {post.Image?(
           <img 
-          src={URL.creatObjectURL(post.Image)}
+          src={URL.createObjectURL(post.Image)}
           alt=""
           className="userImage"/>
         ):( <img 
-          src="https://images.pexels.com/photos/15114086/pexels-photo-15114086/free-photo-of-aerial-photography-of-people-on-concrete-dock.jpeg"
+          src="https://i.redd.it/lgmilv1j2wjb1.jpg"
           alt="didnt work"
           className="userImage"/>)}
         <textarea

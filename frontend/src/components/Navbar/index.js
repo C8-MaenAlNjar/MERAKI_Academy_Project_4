@@ -6,9 +6,10 @@ import './style.css'
 const NavBar = ({ isLog, logout }) => {
   const navigate = useNavigate();
   const  user  = useContext(UserContext);
+  const  userinfo  = useContext(UserContext);
   const location = useLocation();
-
-console.log('id',user);
+  const token = localStorage.getItem("token");
+  console.log('user here',userinfo);
 
   const handleLogout = () => {
     logout();
@@ -22,10 +23,11 @@ console.log('id',user);
    
     
     
-    {user && location.pathname === "/dashboard" && (
+    {token && (
         <>
         <Link to='/addpost'>Add Post</Link>
         <Link to='/dashboard'>Dashboard</Link>
+        <Link to='/ProfilePage'>profile</Link>
          <button onClick={handleLogout}>Logout</button>
          
                  </>

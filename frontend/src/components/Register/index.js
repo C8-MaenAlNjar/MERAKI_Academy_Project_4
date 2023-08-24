@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate,Link } from "react-router-dom";
-import './style.css'
-
+import { useNavigate, Link } from "react-router-dom";
+import "./style.css";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -12,11 +11,22 @@ const Register = () => {
     password: "",
     name: "",
   });
+  const [imageFile, setImageFile] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/register", userData);
+      const formData = new FormData();
+      formData.append("username", userData.username);
+      formData.append("email", userData.email);
+      formData.append("password", userData.password);
+      formData.append("name", userData.name);
+      formData.append("image", imageFile);
+
+      const response = await axios.post(
+        "http://localhost:5000/register",
+        userData
+      );
       if (response.status === 200) {
         navigate("/login");
       }
@@ -24,7 +34,7 @@ const Register = () => {
       console.log("error", error);
     }
   };
-  return(
+  return (
     <div className="register-container">
       <form onSubmit={handleSubmit}>
         <input
@@ -33,7 +43,9 @@ const Register = () => {
           placeholder="Username"
           className="register-input"
           value={userData.username}
-          onChange={(e) => setUserData({ ...userData, username: e.target.value })}
+          onChange={(e) =>
+            setUserData({ ...userData, username: e.target.value })
+          }
         />
         <input
           type="text"
@@ -49,7 +61,9 @@ const Register = () => {
           placeholder="Password"
           className="register-input"
           value={userData.password}
-          onChange={(e) => setUserData({ ...userData, password: e.target.value })}
+          onChange={(e) =>
+            setUserData({ ...userData, password: e.target.value })
+          }
         />
         <input
           type="text"
@@ -59,10 +73,17 @@ const Register = () => {
           value={userData.name}
           onChange={(e) => setUserData({ ...userData, name: e.target.value })}
         />
+        <input
+        type="file"
+        name="image"
+        className="register-input"
+        onChange={(e) => setImageFile(e.target.files[0])}
+      />
         <button type="submit" className="register-button">
           Register
         </button>
       </form>
+      
       <p className="login-link">
         you have an account? <Link to="/login">login</Link>
       </p>
@@ -70,4 +91,4 @@ const Register = () => {
   );
 };
 
-export default Register 
+export default Register;
