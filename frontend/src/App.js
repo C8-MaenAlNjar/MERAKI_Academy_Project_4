@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from "./components/Navbar";
 import AddPost from './components/Addpost'
 import ProfilePage from './components/profilepage'
-
+ 
 
 
 export const UserContext = createContext();
@@ -46,6 +46,7 @@ const logout =()=>{
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path='/addpost' element={<AddPost/>}/>
         <Route path='/ProfilePage' element={<ProfilePage />}/>
+        
       </Routes>
      
   </UserContext.Provider>

@@ -28,6 +28,7 @@ const NavBar = ({ isLog, logout }) => {
         <Link to='/addpost'>Add Post</Link>
         <Link to='/dashboard'>Dashboard</Link>
         <Link to='/ProfilePage'>profile</Link>
+       
          <button onClick={handleLogout}>Logout</button>
          
                  </>

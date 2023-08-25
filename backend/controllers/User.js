@@ -37,7 +37,7 @@ const register = async (req, res) => {
       password,
       email,
       name,
-      role: "64e78fa055bae748b05998a6",
+      role: "64e84a4d8b235de09180b5c6",
       image
     });
     await user.save();

@@ -6,9 +6,11 @@ import "./style.css";
 
 const Dashboard = () => {
   const user = useContext(UserContext);
+  const userInfo = useContext(UserContext);
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const [userFriends, setUserFriends] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -16,7 +18,7 @@ const Dashboard = () => {
      navigate("/login");
       return;
     }
-
+console.log('USUS',userInfo.user);
     const showPosts = async () => {
       try {
         const response = await axios.get("http://localhost:5000/posts", {
@@ -28,12 +30,33 @@ const Dashboard = () => {
         console.log(response);
         setPosts(response.data.posts);
       } catch (error) {
-        console.log("Error fetching posts", error.response.data);
+        console.log("Error  posts", error.response.data);
       }
     };
 
     showPosts();
-  }, [user]);
+
+    const showFriends = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/getFriends/${userInfo.user}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUserFriends(response.data);
+      } catch (error) {
+        console.log("Error  user's friends", error.response);
+      }
+    };
+
+    showFriends();
+
+
+
+
+
+
+  },[user, navigate]);
 
   const handleDelete = async (postId) => {
     try {
@@ -78,6 +101,45 @@ const Dashboard = () => {
     }
   };
 
+  const handleFriendAction = async (friendId) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (userFriends.includes(friendId)) {
+       
+        await axios.delete("http://localhost:5000/removeFriend", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data: { friendId },
+        });
+      } else {
+       
+        await axios.post("http://localhost:5000/addFriend", {
+          userId: userInfo.user,
+          friendId,
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }
+
+    
+      const response = await axios.get(`http://localhost:5000/getFriends/${userInfo.user}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUserFriends(response.data);
+    } catch (error) {
+      console.error("Error adding/removing friend", error.response);
+    }
+  };
+
+
+
+
+
   return (
     <div className="center-content">
       {posts.map((post) => (
@@ -92,7 +154,7 @@ const Dashboard = () => {
           </li>
           <img src={post.image} alt="post" />
           <p className="post-description">{post.description}</p>
-          {user.user === post.author && (
+          {user === post.author && (
             <div className="post-buttons">
               <button className="delete" onClick={() => handleDelete(post._id)}>
                 Delete
@@ -112,7 +174,23 @@ const Dashboard = () => {
             >
               Add Comment
             </button>
+            
           </li>
+          {console.log( 'author',post.author)}
+            {console.log( 'friend',userFriends)}
+          {user.user !== post.author && (
+            <div className="friend">
+              {userFriends.includes(user.user) ? (
+                <button className="remove-friend" onClick={() => handleFriendAction(post.author)}>
+                  Remove Friend
+                </button>
+              ) : (
+                <button className="add-friend" onClick={() => handleFriendAction(post.author)}>
+                  Add Friend
+                </button>
+              )}
+            </div>
+          )}
         </ul>
       ))}
     </div>

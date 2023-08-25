@@ -30,7 +30,7 @@
 .post-buttons {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Center buttons vertically */
+  align-items: center; 
   margin-top: 10px;
 }
 
@@ -107,4 +107,30 @@ ul, li {
   margin: 0;
   padding: 0;
   text-decoration: none;
+}
+.add-friend {
+  background-color: rgb(107, 117, 212);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-friend:hover {
+  background-color: rgb(154, 172, 217);
+}
+
+/* Separate styles for Remove Friend button */
+.remove-friend {
+  background-color: rgb(115, 119, 228);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.remove-friend:hover {
+  background-color: rgb(19, 80, 134);
 }
