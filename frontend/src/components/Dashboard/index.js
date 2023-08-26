@@ -10,7 +10,14 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [newComment, setNewComment] = useState("");
- 
+  const [allUsers, setAllUsers] = useState([]);
+  const [friendsList, setFriendsList] = useState([]);
+
+
+
+
+
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -33,8 +40,26 @@ const Dashboard = () => {
         console.log("Error  posts", error.response.data);
       }
     };
- 
-    
+    const getAllUsers = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/getAllUsers");
+        setAllUsers(response.data);
+      } catch (error) {
+        console.log("Error get users", error.response.data);
+      }
+    };
+    const FriendsList = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/FriendsList/${userInfo.user}`
+        );
+        setFriendsList(response.data.friends);
+      } catch (error) {
+        console.log("Error fetching friend list", error.response.data);
+      }
+    };
+    FriendsList()
+    getAllUsers()
     showPosts();
   }, [navigate]);
 
@@ -86,7 +111,17 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-  
+  <div className="friend-list">
+        <h2>Friend List</h2>
+        <ul>
+          {friendsList.map((friend) => (
+            <li key={friend._id}>
+              <span>{friend.name}</span>
+              <button onClick={() =>console.log("he")}>Remove</button>
+            </li>
+          ))}
+        </ul>
+      </div>
       <div className="center-content">
         {posts.map((post) => (
           <ul className="post" key={post._id}>

@@ -157,12 +157,24 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-
+const FriendsList = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const friendsList = await User.find({ _id: { $in: user.friends } });
+    res.json({ friends: friendsList });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to get friend list", message: error.message });
+  }
+};
 
 module.exports = {
   register,
   login,
   addFriend,
   removeFriend,
-  getAllUsers
+  getAllUsers,
+  FriendsList
 };
