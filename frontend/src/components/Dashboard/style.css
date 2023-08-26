@@ -108,7 +108,7 @@ ul, li {
   padding: 0;
   text-decoration: none;
 }
-.add-friend {
+.add-friend-button {
   background-color: rgb(107, 117, 212);
   color: white;
   border: none;
@@ -117,9 +117,7 @@ ul, li {
   cursor: pointer;
 }
 
-.add-friend:hover {
-  background-color: rgb(154, 172, 217);
-}
+
 
 /* Separate styles for Remove Friend button */
 .remove-friend {

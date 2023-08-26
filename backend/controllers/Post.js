@@ -54,58 +54,9 @@ const showPost = async (req, res) => {
   }
 };
 
-const postUser = async (req, res) => {
-  const authorId = req.query.author;
-  
-  try {
-    const posts = await Post.find({ author: authorId });
-    if (posts.length > 0) {
-      return res.status(200).json({
-        success: true,
-        message: `All the articles for the author: ${authorId}`,
-        posts,
-      });
-    } else {
-      return res.status(404).json({
-        success: false,
-        message: `The author => ${authorId} has no articles`,
-      });
-    }
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-      err: error.message,
-    });
-  }
-};
 
-const postId = async (req, res) => {
-  const postId = req.params.id;
 
-  try {
-    const post = await Post.findById(postId);
 
-    if (post) {
-      return res.status(200).json({
-        success: true,
-        message: `The post ${postId}`,
-        post,
-      });
-    } else {
-      return res.status(500).json({
-        success: false,
-        message: `The post with id => ${postId} not found`,
-      });
-    }
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-      err: error.message,
-    });
-  }
-};
 
 const updateById = async (req, res) => {
   const postId = req.params.id;
@@ -206,8 +157,6 @@ const createComment = async (req, res) => {
 module.exports = {
   addPost,
   showPost,
-  postUser,
-  postId,
   updateById,
   deleteById,
   createComment 

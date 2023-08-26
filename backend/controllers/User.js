@@ -2,34 +2,11 @@ const User = require("../models/UserSchema");
 const Role = require("../models/role");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const multer = require("multer");
-
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname); 
-  }
-});
-
-const upload = multer({ storage: storage })
-
-
 
 
 
 const register = async (req, res) => {
   const { username, password, email, name ,image} = req.body;
-
-   
-  if (req.file) {
-    image = req.file.path; 
-  }
-
-
-
 
   try {
     const user = new User({
@@ -95,8 +72,46 @@ const login = async (req, res) => {
       .json({ success: false, message: "Server Error", error: error.message });
   }
 };
+const addFriend = async (req, res) => {
+  const { userId, friendId } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    const friend = await User.findById(friendId);
+
+    if (!user || !friend) {
+      return res.status(404).json({
+        success: false,
+        message: "User or friend not found",
+      });
+    }
+
+  
+    if (user.friends.includes(friend._id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Friend is already added",
+      });
+    }
+
+    user.friends.push(friend._id);
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Friend added successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: error.message,
+    });
+  }
+};
 
 module.exports = {
   register,
   login,
+  addFriend
 };

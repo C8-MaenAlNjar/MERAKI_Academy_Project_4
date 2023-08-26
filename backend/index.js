@@ -12,7 +12,7 @@ const PORT = process.env.PORT
 const useRouter = require("./routes/user");
 const addPost =require('./routes/post');
 const roleRouter = require('./routes/role');
-const friendRoutes=require('./routes/firend')
+
 
 app.use(cors());
 app.use(express.json());
@@ -21,7 +21,7 @@ app.use(express.json());
 app.use("/", useRouter);
 app.use("/",addPost)
 app.use('/',roleRouter)
-app.use('/', friendRoutes);
+
 const DB_URI = process.env.DATABASE_URI;
 const SECRET = process.env.SECRET;
 

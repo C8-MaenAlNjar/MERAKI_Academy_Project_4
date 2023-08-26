@@ -1,11 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../App";
+
 import "./style.css";
 
 const AddPost = () => {
-  const userContext = useContext(UserContext);
+ 
   const navigate = useNavigate();
   const [post, setPost] = useState({
     Image: '',
@@ -28,7 +28,7 @@ const AddPost = () => {
         }
       );
 
-      console.log("Response:", response.data);
+     
       navigate("/dashboard"); 
     } catch (error) {
       console.log("Error:", error);
