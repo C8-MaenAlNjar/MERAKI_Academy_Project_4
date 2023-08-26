@@ -21,7 +21,7 @@ function App() {
 
 
   const [user, setUser] = useState(null);
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState({ user: null, friends: [] });
   const Navigate = useNavigate();
 
 
@@ -29,6 +29,7 @@ const logout =()=>{
   
   localStorage.clear();
   setUser(null)
+  setUserInfo({ user: null, friends: [] })
   Navigate('/login')
 }
 

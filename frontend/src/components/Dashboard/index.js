@@ -18,7 +18,7 @@ const Dashboard = () => {
       navigate("/login");
       return;
     }
-   
+
     const showPosts = async () => {
       try {
         const response = await axios.get("http://localhost:5000/posts", {
@@ -26,15 +26,17 @@ const Dashboard = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-
+    
         setPosts(response.data.posts);
+
       } catch (error) {
         console.log("Error  posts", error.response.data);
       }
     };
-
+ 
+    
     showPosts();
-  }, [user, navigate]);
+  }, [navigate]);
 
   const handleDelete = async (postId) => {
     try {
@@ -79,46 +81,53 @@ const Dashboard = () => {
     }
   };
  
-  return (
-    <div className="center-content">
-      {posts.map((post) => (
-        <ul className="post" key={post._id}>
-          <p className="username">{post.username}</p>
-          <p className="post-description">{post.description}</p>
-          <li className="comments">
-            {post.comments.map((comment) => (
-              <p key={comment._id} className="comment">
-                {comment.comment}
-              </p>
-            ))}
-          </li>
 
-          <img src={post.image} alt="post" />
-          
-          {userInfo.user === post.author && (
-            <div className="post-buttons">
-              <button className="delete" onClick={() => handleDelete(post._id)}>
-                Delete
+
+
+  return (
+    <div className="dashboard">
+  
+      <div className="center-content">
+        {posts.map((post) => (
+          <ul className="post" key={post._id}>
+            <p className="username">{post.username}</p>
+            <p className="post-description">{post.description}</p>
+            <li className="comments">
+              {post.comments.map((comment) => (
+                <p key={comment._id} className="comment">
+                  {comment.comment}
+                </p>
+              ))}
+            </li>
+            <img src={post.image} alt="post" />
+            
+            {userInfo.user === post.author && (
+              <div className="post-buttons">
+                <button
+                  className="delete"
+                  onClick={() => handleDelete(post._id)}
+                >
+                  Delete
+                </button>
+              </div>
+            )}
+            <li className="add-comment">
+              <textarea
+                className="comment-input"
+                placeholder="Add a comment"
+                value={newComment[post._id]}
+                onChange={(e) => setNewComment(e.target.value)}
+              />
+              <button
+                className="add-comment-button"
+                onClick={() => handleAddComment(post._id)}
+              >
+                Add Comment
               </button>
-            </div>
-          )}
-          <li className="add-comment">
-            <textarea
-              className="comment-input"
-              placeholder="Add a comment"
-              value={newComment[post._id]}
-              onChange={(e) => setNewComment(e.target.value)}
-            />
-            <button
-              className="add-comment-button"
-              onClick={() => handleAddComment(post._id)}
-            >
-              Add Comment
-            </button>
-           
-          </li>
-        </ul>
-      ))}
+            </li>
+          </ul>
+        ))}
+      </div>
     </div>
   );
 };

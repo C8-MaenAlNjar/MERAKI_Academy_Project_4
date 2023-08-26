@@ -9,7 +9,8 @@ const NavBar = ({ isLog, logout }) => {
   const  userinfo  = useContext(UserContext);
   const location = useLocation();
   const token = localStorage.getItem("token");
-  console.log('user here',userinfo);
+  console.log('user here',userinfo.user);
+  console.log('user',userinfo.userInfo.friends);
 
   const handleLogout = () => {
     logout();

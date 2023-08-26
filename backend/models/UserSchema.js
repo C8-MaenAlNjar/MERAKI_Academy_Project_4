@@ -11,12 +11,13 @@ const userSchema = new mongoose.Schema({
   name: { type: String, require: true },
   role: { type: mongoose.Schema.Types.ObjectId, ref: "Role" }
   ,image: { type: String },
-  friends:[
-    {
+  friends: 
+  [  {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User", 
-    },
-  ],
+      ref: "User",
+    },]
+  
+  
 });
 
 userSchema.pre("save", async function () {

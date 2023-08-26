@@ -88,7 +88,7 @@ a {
   color: rgb(0, 0, 0);
 }
 
-/* Style Save button */
+
 .save {
   background-color: gray;
   color: white;
@@ -96,7 +96,7 @@ a {
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s; /* Add transition effect */
+  transition: background-color 0.3s, color 0.3s; 
 }
 
 .save:hover {
@@ -108,7 +108,7 @@ ul, li {
   padding: 0;
   text-decoration: none;
 }
-.add-friend-button {
+.add-friend {
   background-color: rgb(107, 117, 212);
   color: white;
   border: none;
@@ -118,8 +118,6 @@ ul, li {
 }
 
 
-
-/* Separate styles for Remove Friend button */
 .remove-friend {
   background-color: rgb(115, 119, 228);
   color: white;
@@ -130,5 +128,49 @@ ul, li {
 }
 
 .remove-friend:hover {
+  background-color: rgb(19, 80, 134);
+}
+.friend-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background-color: rgb(220, 220, 220);
+  padding: 10px;
+  border-radius: 10px;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.friend-list h2 {
+  font-size: 18px;
+}
+
+.friend-list ul {
+  padding: 0;
+}
+
+.friend-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 5px;
+}
+
+.friend-list button {
+  background-color: rgb(115, 119, 228);
+  color: white;
+  border: none;
+  padding: 3px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.friend-list button:hover {
   background-color: rgb(19, 80, 134);
 }

@@ -3,10 +3,8 @@ const Role = require("../models/role");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-
-
 const register = async (req, res) => {
-  const { username, password, email, name ,image} = req.body;
+  const { username, password, email, name, image } = req.body;
 
   try {
     const user = new User({
@@ -15,7 +13,7 @@ const register = async (req, res) => {
       email,
       name,
       role: "64e84a4d8b235de09180b5c6",
-      image
+      image,
     });
     await user.save();
     res.json({ message: "user registered successfully" });
@@ -61,9 +59,10 @@ const login = async (req, res) => {
         message: "Valid login credentials",
         token: token,
         userId: user._id,
-        username:user.username,
-        name:user.name,
-        image:user.image
+        username: user.username,
+        name: user.name,
+        image: user.image,
+        friends:user.friends
       });
     }
   } catch (error) {
@@ -77,24 +76,24 @@ const addFriend = async (req, res) => {
 
   try {
     const user = await User.findById(userId);
-    const friend = await User.findById(friendId);
 
-    if (!user || !friend) {
+    if (!user) {
       return res.status(404).json({
         success: false,
-        message: "User or friend not found",
+        message: "User not found",
       });
     }
 
-  
-    if (user.friends.includes(friend._id)) {
+    if (user.friends.includes(friendId)) {
       return res.status(400).json({
         success: false,
         message: "Friend is already added",
       });
     }
 
-    user.friends.push(friend._id);
+   
+    user.friends.push(friendId);
+    
     await user.save();
 
     return res.status(200).json({
@@ -110,8 +109,60 @@ const addFriend = async (req, res) => {
   }
 };
 
+
+
+const removeFriend = async (req, res) => {
+  const { userId, friendId } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    if (!user.friends.includes(friendId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Friend not found in the user's friends list",
+      });
+    }
+
+    user.friends = user.friends.filter((id) => id.toString() !== friendId);
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Friend removed successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: error.message,
+    });
+  }
+};
+
+
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to get users", message: error.message });
+  }
+};
+
+
+
 module.exports = {
   register,
   login,
-  addFriend
+  addFriend,
+  removeFriend,
+  getAllUsers
 };
