@@ -1,5 +1,5 @@
 import "./App.css";
-import React,{createContext ,useState} from "react";
+import React,{createContext ,useState,useEffect} from "react";
 import{Route,Routes}from "react-router-dom"
 import Login from './components/Login'
 import Register from './components/Register'
@@ -19,10 +19,18 @@ export const UserContext = createContext();
 
 function App() {
 
-
-  const [user, setUser] = useState(null);
-  const [userInfo, setUserInfo] = useState({ user: null, friends: [] });
   const Navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [userInfo, setUserInfo] = useState(() => {
+    const storedUserInfo = localStorage.getItem("userInfo");
+   
+    return storedUserInfo ? JSON.parse(storedUserInfo) : { user: null, friends: [] };
+  });
+
+    
+
+
+
 
 
 const logout =()=>{

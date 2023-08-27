@@ -6,7 +6,7 @@ import './style.css'
 
 const Login = () => {
   const navigate = useNavigate();
-  const userContext = useContext(UserContext);
+  const { setUser, setUserInfo } = useContext(UserContext); 
 
   const [info, setInfo] = useState({
     email: "",
@@ -22,11 +22,9 @@ const Login = () => {
       const response = await axios.post("http://localhost:5000/login", info);
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", response.data.user);
-        userContext.setUser(response.data.userId);
-        userContext.setUserInfo(response.data);
-        localStorage.setItem("userInfo", JSON.stringify(response.data));
-       
+         localStorage.setItem("userInfo", JSON.stringify(response.data));
+        setUser(response.data.userId);
+        setUserInfo(response.data);
 
 
         navigate("/dashboard");

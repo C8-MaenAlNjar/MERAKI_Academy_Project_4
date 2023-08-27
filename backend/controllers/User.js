@@ -65,85 +65,12 @@ const login = async (req, res) => {
         friends:user.friends
       });
     }
+
+
   } catch (error) {
     res
       .status(500)
       .json({ success: false, message: "Server Error", error: error.message });
-  }
-};
-const addFriend = async (req, res) => {
-  const { userId, friendId } = req.body;
-
-  try {
-    const user = await User.findById(userId);
-
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
-    }
-
-    if (user.friends.includes(friendId)) {
-      return res.status(400).json({
-        success: false,
-        message: "Friend is already added",
-      });
-    }
-
-   
-    user.friends.push(friendId);
-    
-    await user.save();
-
-    return res.status(200).json({
-      success: true,
-      message: "Friend added successfully",
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Server Error",
-      error: error.message,
-    });
-  }
-};
-
-
-
-const removeFriend = async (req, res) => {
-  const { userId, friendId } = req.body;
-
-  try {
-    const user = await User.findById(userId);
-
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
-    }
-
-    if (!user.friends.includes(friendId)) {
-      return res.status(400).json({
-        success: false,
-        message: "Friend not found in the user's friends list",
-      });
-    }
-
-    user.friends = user.friends.filter((id) => id.toString() !== friendId);
-    await user.save();
-
-    return res.status(200).json({
-      success: true,
-      message: "Friend removed successfully",
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Server Error",
-      error: error.message,
-    });
   }
 };
 
@@ -164,9 +91,51 @@ const FriendsList = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
     const friendsList = await User.find({ _id: { $in: user.friends } });
-    res.json({ friends: friendsList });
+    res.json( friendsList );
   } catch (error) {
     res.status(500).json({ error: "Failed to get friend list", message: error.message });
+  }
+};
+
+
+const addFriend = async (userId, friendId) => { // Receive userId and friendId as parameters
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const friend = await User.findById(friendId);
+    if (!friend) {
+      throw new Error("Friend not found");
+    }
+
+    user.friends.push(friendId);
+    await user.save();
+
+    return { message: "Friend added successfully" };
+  } catch (error) {
+    throw error;
+  }
+}
+const removeFriend = async (req, res) => {
+  try {
+    
+    const userId = req.body.userId
+    const friendId = req.params.friendId;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.friends = user.friends.filter(id => id.toString() !== friendId);
+    await user.save();
+
+    return res.status(200).json({ message: 'Friend removed successfully' });
+  } catch (error) {
+    console.error('Error removing friend:', error);
+    res.status(500).json({ message: 'An error occurred',error:error.message });
   }
 };
 
@@ -174,7 +143,7 @@ module.exports = {
   register,
   login,
   addFriend,
-  removeFriend,
   getAllUsers,
-  FriendsList
+  FriendsList,
+  removeFriend
 };

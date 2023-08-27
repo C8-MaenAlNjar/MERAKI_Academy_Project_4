@@ -6,10 +6,10 @@ import './style.css'
 const NavBar = ({ isLog, logout }) => {
   const navigate = useNavigate();
   const  user  = useContext(UserContext);
-  const  userinfo  = useContext(UserContext);
+  const  userInfo  = useContext(UserContext);
   const location = useLocation();
   const token = localStorage.getItem("token");
-  
+  console.log("isis",userInfo);
 
   const handleLogout = () => {
     logout();
