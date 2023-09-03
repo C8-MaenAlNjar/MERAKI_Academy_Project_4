@@ -2,13 +2,43 @@ import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Image,
+  CardFooter,
+  Button,
+  Flex,
+  Avatar,
+  Heading,
+  Text,
+  IconButton,
+  Box,
+} from "@chakra-ui/react";
+import { BiLike, BiChat, BiShare } from "react-icons/bi";
+import { Link } from "react-router-dom";
+import { useDisclosure, Collapse } from "@chakra-ui/react";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import "./style.css";
+import AddPost from "../Addpost";
+import SideBar from "../sideBar";
+import PostComments from "../showcommit";
+import { useColorMode, toggleColorMode } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
 
 const Dashboard = () => {
-  const  userInfo  = useContext(UserContext);
+  const { colorMode, toggleColorMode } = useColorMode();
 
+  const { userInfo, setUserInfo } = useContext(UserContext);
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
+  console.log("how", posts);
   const [newComment, setNewComment] = useState("");
   const [allUsers, setAllUsers] = useState([]);
   const [friendsList, setFriendsList] = useState([]);
@@ -22,16 +52,18 @@ const Dashboard = () => {
 
     const callData = async () => {
       try {
-        const postsResponse = await axios.get("http://localhost:5000/posts", {
+        const postsResponse = await axios.get(`http://localhost:5000/showposts/${userInfo.userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
-        const usersResponse = await axios.get("http://localhost:5000/getAllUsers");
+        const usersResponse = await axios.get(
+          "http://localhost:5000/getAllUsers"
+        );
 
         const friendsResponse = await axios.get(
-          `http://localhost:5000/FriendsList/${userInfo.user}`,
+          `http://localhost:5000/FriendsList/${userInfo.userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -48,7 +80,7 @@ const Dashboard = () => {
     };
 
     callData();
-  }, [navigate,userInfo]);
+  }, [userInfo]);
 
   const handleDelete = async (postId) => {
     try {
@@ -87,13 +119,15 @@ const Dashboard = () => {
         )
       );
 
-      setNewComment("");
+      setNewComment((prevComments) => ({
+        ...prevComments,
+        [postId]: "",
+      }));
     } catch (error) {
       console.log("Error", error.response);
     }
   };
 
-  
   const handleAddFriend = async (friendId) => {
     try {
       const token = localStorage.getItem("token");
@@ -109,7 +143,6 @@ const Dashboard = () => {
 
       if (response.data.message === "Friend added successfully") {
         console.log("Friend added successfully");
-        // You might want to update the friendsList state here if needed
       } else {
         console.log("Error adding friend:", response.data.message);
       }
@@ -117,110 +150,113 @@ const Dashboard = () => {
       console.error("Error adding friend:", error);
     }
   };
-  const handleRemoveFriend = async (friendId) => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.delete(
-        `http://localhost:5000/removefriend/${friendId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          data: {
-            userId: userInfo.user, // Send the userId in the request body
-          },
-        }
-      );
 
-      if (response.data.message === 'Friend removed successfully') {
-        console.log('Friend removed successfully');
-        // Update the friendsList state or take other necessary actions
-      } else {
-        console.log('Error removing friend:', response.data.message);
-      }
-    } catch (error) {
-      console.error('Error removing friend:', error);
-    }
+  const toggleComments = () => {
+    setIsOpen(!isOpen);
   };
 
-  
   return (
     <div className="dashboard">
-      <div className="friend-list">
-        <h2>Friend List</h2>
-       
-      
-       
-        { friendsList && friendsList.map((friend) => (
-          <li key={friend._id} className="friend-item">
-            <div className="friend-info">
-              <img
-                src={friend.image}
-                alt={friend.name}
-                className="friend-image"
-              />
-              <div className="friend-details">
-                <h3 className="friend-name">{friend.name}</h3>
-                <p className="friend-username">{friend.username}</p>
-              </div>
-            </div>
-            <button
-              className="remove-friend-button"
-              onClick={() => handleRemoveFriend(friend._id)}
-            >
-              Remove Friend
-            </button>
-          </li>
-        ))}
-      </div>
-      <div className="center-content">
-        {posts.map((post) => (
-          <ul className="post" key={post._id}>
-            <p className="username">{post.username}</p>
-            <p className="post-description">{post.description}</p>
-            <li className="comments">
-            {userInfo.user !== post.author && ( // Only show the "Add Friend" button for posts by other users
-            <button
-              className="add-friend"
-              onClick={() => handleAddFriend(post.author)}
-            >
-              Add Friend
-            </button>
-          )}
-              {post.comments.map((comment) => (
-                <p key={comment._id} className="comment">
-                  {comment.comment}
-                </p>
-              ))}
-            </li>
-            <img src={post.image} alt="post" />
+      <div>
+        <SideBar className="sidbar" />
 
-            {userInfo.user === post.author && (
-              <div className="post-buttons">
-                <button
-                  className="delete"
-                  onClick={() => handleDelete(post._id)}
+        <div className="center-content">
+          <AddPost />
+
+          <div className="center-content">
+            {posts.map((post) => (
+              <Card maxW="lg" className="post" key={post._id}>
+                <CardHeader>
+                  <Flex justify="space-between" spacing="4">
+                    {allUsers.map(
+                      (user) =>
+                        user._id === post.author && (
+                          <div key={user._id} className="user-info">
+                            <div>
+                              <p className="username">{post.username}</p>
+                            </div>
+                            <Avatar
+                              src={user.image}
+                              style={{ marginTop: "15px" }}
+                            />
+                          </div>
+                        )
+                    )}
+
+                    <IconButton
+                      variant="ghost"
+                      colorScheme="gray"
+                      aria-label="See menu"
+                      icon={<BsThreeDotsVertical />}
+                    />
+                  </Flex>
+                </CardHeader>
+                <div className="post-image">
+                  <p className="post-description">{post.description}</p>
+                  <Image
+                    objectFit="cover"
+                    src={post.image}
+                    alt="Post Image"
+                    style={{ marginTop: "15px" }}
+                  />
+                </div>{" "}
+                <CardFooter
+                  justify="space-between"
+                  flexWrap="wrap"
+                  sx={{
+                    "& > button": {
+                      minW: "129px",
+                    },
+                  }}
                 >
-                  Delete
-                </button>
-              </div>
-            )}
-            <li className="add-comment">
-              <textarea
-                className="comment-input"
-                placeholder="Add a comment"
-                value={newComment[post._id]}
-                onChange={(e) => setNewComment(e.target.value)}
-              />
-              <button
-                className="add-comment-button"
-                onClick={() => handleAddComment(post._id)}
-              >
-                Add Comment
-              </button>
-            </li>
-          </ul>
-        ))}
+                  {userInfo.userId !== post.author && (
+                    <Button
+                      flex="1"
+                      variant="ghost"
+                      leftIcon={<FontAwesomeIcon icon={faUserPlus} />}
+                      className="add-friend"
+                      onClick={() => handleAddFriend(post.author)}
+                    >
+                      Add Friend
+                    </Button>
+                  )}
+                  {userInfo.userId === post.author && (
+                    <Button
+                      flex="1"
+                      variant="ghost"
+                      leftIcon={<FontAwesomeIcon icon={faTrash} />}
+                      className="delete"
+                      onClick={() => handleDelete(post._id)}
+                    >
+                      Delete
+                    </Button>
+                  )}
+                  <Button
+                    flex="1"
+                    variant="ghost"
+                    leftIcon={<BiChat />}
+                    className="add-comment-button"
+                    onClick={() => handleAddComment(post._id)}
+                  >
+                    Comment
+                  </Button>
+                  <Button flex="1" variant="ghost" leftIcon={<BiLike />}>
+                    Like
+                  </Button>
+                </CardFooter>
+                <PostComments post={post} />
+                <div className="add-comment">
+                  <textarea
+                    className="comment-input"
+                    placeholder="Add a comment"
+                    value={newComment[post._id]}
+                    onChange={(e) => setNewComment(e.target.value)}
+                  />
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

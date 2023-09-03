@@ -1,23 +1,19 @@
 const Post = require("../models/Post");
-
+const User = require("../models/UserSchema");
 
 
 const addPost = async (req, res) => {
   const { image, description } = req.body;
   const authorId = req.token.userId;
   const username=req.token.name
-  console.log("image:", image);
-  console.log("description:", description);
-  console.log("authorId:", authorId);
-  console.log("username:", username);
-  console.log("Request Body:", req.body);
+const img =req.token.image
   try {
     const newPost = new Post({
       image,
       description,
       username:username,
       author:authorId,
-      
+      img:img
     });
     console.log("usus:", newPost);
     await newPost.save();
@@ -42,7 +38,7 @@ const showPost = async (req, res) => {
     const posts = await Post.find().populate('comments.commenter', 'username').exec()
     return res.status(200).json({
       success: true,
-      message: "All the articles",
+      message: "All the post",
       posts,
     });
   } catch (error) {
@@ -150,7 +146,26 @@ const createComment = async (req, res) => {
       err: error.message
     });
   }
+
 };
+const getPostById =async(req,res)=>{
+  const userId = req.params.userId
+ 
+  try{
+    const user = await User.findById(userId)
+
+    if(!user){
+      return res.status(405).json({message:'post not found'})
+    }
+    const posts = await Post.find({ author: userId });
+    res.json(posts)
+  } catch (error){
+    res.status(500).json({error:"fail",message:error.message})
+  }
+}
+
+
+
 
 
 
@@ -159,5 +174,6 @@ module.exports = {
   showPost,
   updateById,
   deleteById,
-  createComment 
+  createComment ,
+  getPostById
 };

@@ -1,6 +1,6 @@
 const express =require('express')
-const { register,login ,getAllUsers,FriendsList,removeFriend} =require('../controllers/User')
-const userController = require('../controllers/User'); // Import the userController
+const { register,login ,getAllUsers,FriendsList,removeFriend,getUserById} =require('../controllers/User')
+const userController = require('../controllers/User');
 
 const authentication = require("../middleware/authentication");
 const authorization = require('../middleware/Authorization');
@@ -13,7 +13,7 @@ useRouter.post('/login',login)
 useRouter.get('/getAllUsers',getAllUsers)
 useRouter.get('/FriendsList/:userId',FriendsList)
 useRouter.delete('/removefriend/:friendId', authentication, removeFriend);
-
+useRouter.get('/user/:friendId', getUserById);
 
 useRouter.post("/addFriend/:userId", authentication, async (req, res) => {
     try {

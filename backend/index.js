@@ -12,15 +12,19 @@ const PORT = process.env.PORT
 const useRouter = require("./routes/user");
 const addPost =require('./routes/post');
 const roleRouter = require('./routes/role');
+const conRouter =require('./routes/Conversation')
+const MessageRouter =require('./routes/Message')
 
 
 app.use(cors());
 app.use(express.json());
 
-
+app.use('/',conRouter)
 app.use("/", useRouter);
 app.use("/",addPost)
 app.use('/',roleRouter)
+app.use('/',MessageRouter)
+
 
 const DB_URI = process.env.DATABASE_URI;
 const SECRET = process.env.SECRET;

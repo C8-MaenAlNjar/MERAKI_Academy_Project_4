@@ -1,0 +1,151 @@
+.sidebars {
+    flex: 3;
+    top: 0;
+    width: 250px;
+    position: fixed;
+   color: #fff;
+    top:0;
+    left:0;
+    bottom: 0;
+    background-color: #212020;
+    overflow-y: auto;
+    height: 100vh;
+    border-right: 1px solid #ccc;
+    z-index: 998;
+  }
+  
+  /* Sidebar List */
+  .sidebarsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebarsListItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+  
+  
+  .sidebarsListItem svg {
+    margin-right: 10px;
+  }
+  
+
+  .sidebarsListItemText {
+    font-size: 16px;
+  }
+  
+ 
+  .sidebarsList li:first-child {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+
+  .sidebarsButton {
+    background-color: #b0b0b0; 
+    color: #fff; 
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+
+  .sidebarsButton:hover {
+    background-color: #0056b3; 
+  }
+  .tabContent {
+    background-color: #fff; 
+    color: #333; 
+    padding: 20px;
+   
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    text-align: center; 
+  
+  }
+  
+  .centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .editePageContainer {
+    display: flex;
+    width: 100%;
+  }
+  
+  .contentContainer {
+    flex: 1; 
+    overflow-y: auto; 
+    padding: 20px; 
+  }
+  
+  .passwordChangeForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 100px;
+  }
+  .passwordChangeForm input {
+    margin-bottom: 30px; 
+  }
+  
+  .passwordChangeForm button {
+    width: 200px;
+  }
+  .emailChangeForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 100px;
+  }
+  .emailChangeForm input{
+    margin-bottom: 30px; 
+  }
+  .emailChangeForm button{
+    width: 200px;
+  }
+  .profileImageChangeForm {
+    display: flex;
+    flex-direction: column;
+    margin: 100px;
+  }
+
+ 
+  .generalOptions {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    margin-top:400px;
+  }
+  
+ 
+  .option {
+    
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    width: 800px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+ 
+  
+ 

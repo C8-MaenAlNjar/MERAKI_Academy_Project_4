@@ -1,6 +1,6 @@
 const express =require('express')
 const postRouter =express.Router();
-const {addPost,showPost,updateById,deleteById,createComment} =require('../controllers/Post')
+const {addPost,showPost,updateById,deleteById,createComment,getPostById} =require('../controllers/Post')
 
 
 const authentication = require("../middleware/authentication");
@@ -8,8 +8,8 @@ const authorization = require('../middleware/Authorization');
 
 
 
-
-postRouter.get('/posts',authentication,authorization('CREATE_COMMENTS'),showPost)
+postRouter.get('/getPost/:userId',getPostById)
+postRouter.get('/showposts/:userId',authentication,authorization('CREATE_COMMENTS'),showPost)
 
 
 postRouter.post('/addpost',  authentication,authorization('CREATE_COMMENTS'),addPost)

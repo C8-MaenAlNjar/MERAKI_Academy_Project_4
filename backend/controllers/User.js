@@ -12,7 +12,7 @@ const register = async (req, res) => {
       password,
       email,
       name,
-      role: "64e84a4d8b235de09180b5c6",
+      role: "64f3ff46220905ae18f9f139",
       image,
     });
     await user.save();
@@ -138,6 +138,22 @@ const removeFriend = async (req, res) => {
     res.status(500).json({ message: 'An error occurred',error:error.message });
   }
 };
+const getUserById = async (req, res) => {
+  try {
+    const userId = req.params.friendId;
+    const user = await User.findById(userId); 
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+   
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
 
 module.exports = {
   register,
@@ -145,5 +161,6 @@ module.exports = {
   addFriend,
   getAllUsers,
   FriendsList,
-  removeFriend
+  removeFriend,
+  getUserById
 };

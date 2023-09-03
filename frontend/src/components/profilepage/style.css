@@ -1,36 +1,118 @@
-.profile-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
+.profilepage{
+    font-family: Arial, sans-serif;
+    background-color: rgb(243, 242, 242);
+    border-radius: 8px;
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
+ padding: 20px;
+ width: 1600px;
+ margin-left: 130px ;
 }
-
-.cover-photo {
-    height: 200px;
-    background-color: #242629; 
+.coverphoto img{
+    width: 100%;
+    height: 500px;
+    border-top-left-radius: 8px ;
+    border-top-right-radius: 8px;
 }
-
-.main-section {
-    text-align: center;
-    padding: 20px 0;
-}
-
-.profile-picture {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid white;
+.first{
+   background: #ffffff;
+    height: 750px;
     margin-bottom: 10px;
+    border-radius: 8px;
 }
 
-h1 {
-    margin: 5px 0;
+.profilepicture{
+width: 350px;
+height: 350px;
+object-fit: cover;
+margin-bottom: 100px;
+position: relative;
+}
+.profile-picture{
+    border-radius: 50%;
+    position: relative;
+    bottom: 150px;
+    left: 620px;
+}
+.namebutton{
+    position: relative;
+    bottom: 250px;
+    left:50px;
+}
+.edit-profile-button{
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.fakedata{
+    position: relative;
+    bottom:220px;
+    left:640px
+}
+
+.edit-profile-button:hover {
+    background-color: #4b4b4b;
+  }
+
+  h1 {
     font-size: 24px;
+    margin-bottom: 5px;
+  }
+  
+  p {
+    font-size: 14px;
+    color: #606770;
+  }
+
+  .secando {
+    display: flex;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border-radius: 8px;
+    
+  }
+  .about-box {
+    background-color: #e9e8e8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .about-box h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .about-box p {
+    font-size: 14px;
+    color: #606770;
+  }
+.friend-container{
+    display: flex;
+    grid-column-gap: 10px;
+    flex-wrap: wrap;
 }
 
-p {
-    margin: 0;
-    color: #777;
+.friend-list{
+    background-color: #fff;
+margin-top: 10px;
+border-radius: 8px;
+}
+.friend-item{
+    width: 500px;
+   border-radius: 10px;
+   margin: 10px;
+}
+.user-posts{
+    margin: 10px;
+    display: flex;
+    grid-column-gap: 10px;
+    grid-column-end: auto;
+    flex-wrap: wrap;
+    background-color: #ffffff;
+    border-radius: 8px;
 }
