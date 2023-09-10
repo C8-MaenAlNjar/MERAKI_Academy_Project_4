@@ -36,7 +36,7 @@ npm start
 
 HOW TO USE :
 !! you need to have account to use this app .
-- you can use one of old account admin@a10 /pass123 or rigster with new account.
+- rigster with new account.
 - after you login you can add post , like your post other users post , del your posts only
 - you can chat between other users
 - you can add firend
