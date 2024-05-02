@@ -1,0 +1,131 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+  background-color: #F0F2F5;
+  border-radius: 5px;
+  height: calc(100vh - 90px);
+  width: 400px;
+}
+
+.chat .messages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.chat .messages h1 {
+  font-weight: 300;
+}
+
+.chat .messages .message {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+.chat .messages .message img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chat .messages .message span {
+  font-weight: bold;
+}
+
+.chat .chatBox {
+  flex: 1;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid black;
+  width: 300px;
+}
+
+.chat .chatBox .top {
+  background-color: #f7c14b85;
+  padding: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid black;
+  width: 260px;
+}
+
+.chat .chatBox .top .user {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.chat .chatBox .top .user img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chat .chatBox .top .close {
+  cursor: pointer;
+  right: 50px;
+}
+
+.chat .chatBox .center {
+  height: 350px;
+  overflow: scroll;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.chat .chatBox .center .ChatMessage {
+  width: 50%;
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.chat .chatBox .center .ChatMessage.own {
+  align-self: flex-end;
+  text-align: right;
+  background-color: #d1f0ff;
+}
+
+.chat .chatBox .center .ChatMessage span {
+  font-size: 12px;
+  color: #999;
+}
+
+.chat .chatBox .bottom {
+  border-top: 2px solid #f7c14b85;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat .chatBox .bottom textarea {
+  flex: 3;
+  height: 90%;
+  border: none;
+}
+
+.chat .chatBox .bottom button {
+  flex: 1;
+  background-color: #f7c14b85;
+  height: 100%;
+  border: none;
+  cursor: pointer;
+}

@@ -1,0 +1,53 @@
+.loginContainer {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.loginContainer .formContainer {
+  display: flex;
+  
+}
+.loginContainer .formContainer form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+
+}
+.loginContainer .formContainer form input {
+  padding: 20px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.loginContainer .formContainer form button {
+  padding: 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.loginContainer .formContainer form button:disabled {
+  background-color: #BED9D8;
+  cursor: not-allowed;
+}
+
+.loginContainer .formContainer form span {
+  color: rgba(255, 0, 0, 0.591);
+}
+
+.loginContainer .formContainer form a {
+  font-size: 14px;
+  color: gray;
+  border-bottom: 1px solid gray;
+  width: max-content;
+
+}

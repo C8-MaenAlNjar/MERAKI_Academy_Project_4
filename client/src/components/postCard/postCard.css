@@ -1,0 +1,73 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.container .card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 500px;
+  height: 600px;
+  margin: 10px;
+}
+.container .card .postData .images img {
+  width: 100%;
+  border-radius: 8px;
+}
+.container .card .useData {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.container .card .useData img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.container .card .postData {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  max-height: calc(100% - 20px);
+}
+.container .card .postData .images img {
+  height: 300px;
+}
+.card p.description {
+  margin-top: 10px;
+  font-size: 16px;
+}
+.postData .userInter {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+.postData .comments {
+  display: flex;
+  overflow-y: scroll;
+  height: 100px;
+  margin: 5px;
+  border-bottom: 1px solid #eee;
+  border-top: 1px solid #eee;
+  width: 50%;
+}
+.postData .likes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  cursor: pointer;
+}
+.postData .likes .mylike {
+  color: red;
+}
+.postData .likes .notliked {
+  color: black;
+}

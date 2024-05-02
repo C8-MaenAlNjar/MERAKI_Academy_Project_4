@@ -1,0 +1,133 @@
+.sidBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 220px;
+  height: calc(100vh - 120px);
+  color: rgb(156 163 175);
+  background-color:#F0F2F5;
+  border-radius: 4px;
+  padding: 20px;
+  z-index: 9999;
+}
+.sidBar a {
+  text-decoration: none; /* Remove underline */
+  color: rgb(0, 0, 0); /* Default text color */
+  transition: color 0.3s ease; /* Smooth transition */
+}
+.theApp {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-top: 12px;
+}
+.svgApp {
+  width: 32px;
+  height: 32px;
+  fill: currentColor;
+}
+.spanApp {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.top {
+  width: 100%;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.topButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 12px;
+  border-top: 1px solid rgb(55 65 81);
+}
+
+.top .topButton a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 3rem;
+  margin-top: 8px;
+  border-radius: 4px;
+}
+.top .topButton a:hover {
+  background-color: rgb(55 65 81);
+  color: gray;
+}
+.top .topButton svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+}
+.top .topButton span {
+  margin-left: 8px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+.bot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 8px;
+  border-top: 1px solid rgb(55 65 81);
+}
+
+.bot a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 3rem;
+  margin-top: 8px;
+  border-radius: 4px;
+}
+.bot a:hover {
+  background-color: rgb(55 65 81);
+  color: gray;
+}
+.bot svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+}
+
+.bot span {
+  margin-left: 8px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+.account {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 64px;
+  margin-top: auto;
+  background-color: rgb(211, 211, 211);
+}
+.account:hover {
+  background-color: rgb(195, 195, 195);
+  color: rgb(55 65 81);
+}
+.account svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+}
+.account span {
+  margin-left: 8px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}

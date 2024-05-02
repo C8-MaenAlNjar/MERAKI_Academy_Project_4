@@ -1,0 +1,64 @@
+nav {
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  font-size: 20px;
+}
+nav .left {
+  flex: 2;
+}
+nav .left .logo {
+  width: 150px;
+}
+/*-----------------------------*/
+nav .right {
+  flex: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+nav .right .seacrBar {
+  border: none;
+}
+nav .right .seacrBar input {
+  width: 500px;
+  height: 30px;
+  border-radius: 10px;
+}
+nav .right .Buttons {
+  display: flex;
+}
+nav .right .Buttons a {
+  text-decoration: none;
+  color: black;
+  padding: 30px 50px;
+}
+nav .right .logout {
+  display: flex;
+}
+/*-------------*/
+.logoutbutton {
+  font-family: monospace;
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  transition: 0.3s;
+  cursor: pointer;
+  text-decoration: none;
+  margin: 20px;
+}
+
+.logoutbutton:hover {
+  background-color: #8e8e8e;
+  box-shadow: 0 0 0 5px #3b82f65f;
+  color: #fff;
+}
+@media (max-width: 600px) {
+  nav .logo {
+    display: none;
+  }
+}

@@ -1,0 +1,45 @@
+.registerContainer {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.registerContainer .formContainer {
+  display: flex;
+
+}
+.registerContainer .formContainer form {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.registerContainer .formContainer form input {
+  display: flex;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.registerContainer .formContainer form input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.registerContainer .formContainer form button {
+  display: block;
+  padding: 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.registerContainer .formContainer form button:hover {
+  background-color: #001123;
+}

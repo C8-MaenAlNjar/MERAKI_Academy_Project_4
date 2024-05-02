@@ -1,0 +1,24 @@
+.DashBoard {
+  height: calc(100vh - 90px);
+  display: flex;
+  justify-content: center;
+
+}
+.DashBoard .postContainer  {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.DashBoard .posts {
+  overflow-y: scroll;
+  margin-bottom: 5px;
+  height: 100%;
+  width: 100%;
+}
+.DashBoard .chatContaner {
+  display: flex;
+  justify-content: flex-end;
+}
+.addPost {
+  margin-bottom: 20px; 
+}
