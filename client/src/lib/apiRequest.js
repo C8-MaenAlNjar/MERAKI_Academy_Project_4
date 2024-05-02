@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiRequest = axios.create({
-  baseURL: "http://localhost:8800/api",
+  baseURL: "https://meraki-academy-project-4-83f6.onrender.com",
   withCredentials: true,
 });
 
