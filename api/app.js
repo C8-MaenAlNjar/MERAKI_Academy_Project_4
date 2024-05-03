@@ -18,7 +18,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
-import { config } from "dotenv";
 config({ path: ".env" });
 
 //Router
