@@ -10,7 +10,11 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 const app = express();
-app.use(cors({ origin: "*" }));
+const corsOptions = {
+  origin: "https://reliable-sopapillas-d0f3c7.netlify.app",
+  credentials: true, 
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
