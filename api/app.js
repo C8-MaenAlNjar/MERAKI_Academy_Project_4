@@ -12,7 +12,7 @@ import cors from "cors";
 
 const app = express();
 const allowedOrigins = [
-  "https://66340d14aae3305a62f53655--reliable-sopapillas-d0f3c7.netlify.app",
+  "https://663565ab4e766a5e4d38b338--melodious-kashata-228ce2.netlify.app",
   "http://localhost:5173", 
 ];
 const corsOptions = {

@@ -25,11 +25,7 @@ export const AuthContextProvider = ({ children }) => {
     if (token) {
       setCurrentToken(token);
     }
-    if (!currentToken && currentUser) {
-      localStorage.clear();
-      window.location.reload();
-
-    }
+    
   }, [currentToken]);
   return (
     <AuthContext.Provider value={{ currentToken, currentUser, updateUser }}>
