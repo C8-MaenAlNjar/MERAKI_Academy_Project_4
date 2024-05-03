@@ -10,7 +10,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 const app = express();
-const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins = ["https://66340d14aae3305a62f53655--reliable-sopapillas-d0f3c7.netlify.app"];
 const corsOptions = {
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -21,7 +21,7 @@ const corsOptions = {
   },
   credentials: true,
 };
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
