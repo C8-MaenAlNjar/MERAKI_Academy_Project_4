@@ -20,12 +20,12 @@ app.use(cookieParser());
 
 //Router
 
-app.use("/api/user", userRoute);
-app.use("/api/post", postRoute);
-app.use("/api/comment", commentRouter);
-app.use("/api/like", likeRouter);
-app.use("/api/chat", chatRouter);
-app.use("/api/message", messageRouter);
+app.use("/user", userRoute);
+app.use("/post", postRoute);
+app.use("/comment", commentRouter);
+app.use("/like", likeRouter);
+app.use("/chat", chatRouter);
+app.use("/message", messageRouter);
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
