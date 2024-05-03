@@ -41,7 +41,13 @@ export const login = async (req, res) => {
 
     const { password: userPassword, ...userInfo } = user;
 
-    res.cookie("token", token, { maxAge: age }).status(200).json(userInfo);
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        maxAge: age,
+      })
+      .status(200)
+      .json(userInfo);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });
@@ -50,6 +56,7 @@ export const login = async (req, res) => {
 export const logout = (req, res) => {
   res.clearCookie("token").status(200).json({ message: "Logout Successful" });
 };
+
 export const updateUser = async (req, res) => {
   const id = req.params.id;
   const tokenUserId = req.userId;

@@ -12,7 +12,8 @@ import cors from "cors";
 
 const app = express();
 const corsOptions = {
-  origin: "https://reliable-sopapillas-d0f3c7.netlify.app",
+  origin:
+    "https://66353e78a93f244539cbe710--lighthearted-frangipane-6aefd2.netlify.app",
   credentials: true,
 };
 app.use(cors(corsOptions));
