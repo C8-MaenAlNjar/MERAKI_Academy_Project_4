@@ -5,6 +5,7 @@ import commentRouter from "./routes/comments.js";
 import likeRouter from "./routes/likes.js";
 import chatRouter from "./routes/chat.js";
 import messageRouter from "./routes/Message.js";
+import { config } from "dotenv";
 
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -12,11 +13,13 @@ import cors from "cors";
 const app = express();
 const corsOptions = {
   origin: "https://reliable-sopapillas-d0f3c7.netlify.app",
-  credentials: true, 
+  credentials: true,
 };
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
+import { config } from "dotenv";
+config({ path: ".env" });
 
 //Router
 
