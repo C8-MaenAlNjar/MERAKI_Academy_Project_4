@@ -8,7 +8,6 @@ import Chat from "../../components/Chat/page";
 
 const Dashboard = () => {
   const data = useLoaderData();
-  console.log(data.chatResponse);
   return (
     <div className="DashBoard">
       <div className="postContainer">
@@ -16,7 +15,14 @@ const Dashboard = () => {
           <AddPost />
         </div>
         <div className="posts">
-          <PostCard posts={data.postResponse.data} />
+          <Suspense fallback={<p>Loading...</p>}>
+            <Await
+              resolve={data.postResponse}
+              errorElement={<p>Error loading posts!</p>}
+            >
+              {(postResponse) => <PostCard posts={data.postResponse.data} />}
+            </Await>
+          </Suspense>
         </div>
       </div>
     </div>
