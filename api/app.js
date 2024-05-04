@@ -12,8 +12,10 @@ import cors from "cors";
 
 const app = express();
 const allowedOrigins = [
+  
   "https://663565ab4e766a5e4d38b338--melodious-kashata-228ce2.netlify.app",
   "http://localhost:5173", 
+  "https://melodious-kashata-228ce2.netlify.app"
 ];
 const corsOptions = {
   origin: (origin, callback) => {
@@ -26,7 +28,7 @@ const corsOptions = {
   },
   credentials: true,
 };
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 config({ path: ".env" });
