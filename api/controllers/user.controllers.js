@@ -36,7 +36,7 @@ export const login = async (req, res) => {
         id: user.id,
       },
       process.env.JWT_SECRET_KEY,
-      { expiresIn: "7d" }
+      { expiresIn: age }
     );
 
     const { password: userPassword, ...userInfo } = user;
@@ -45,6 +45,8 @@ export const login = async (req, res) => {
       .cookie("token", token, {
         httpOnly: true,
         maxAge: age,
+        secure: true,
+        sameSite: "strict",
       })
       .status(200)
       .json(userInfo);

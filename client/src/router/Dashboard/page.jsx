@@ -8,6 +8,7 @@ import Chat from "../../components/Chat/page";
 
 const Dashboard = () => {
   const data = useLoaderData();
+  console.log(data);
   return (
     <div className="DashBoard">
       <div className="postContainer">
