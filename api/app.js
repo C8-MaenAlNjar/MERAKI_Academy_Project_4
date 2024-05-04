@@ -11,14 +11,19 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 const app = express();
+
+// Load environment variables
+config({ path: ".env" });
+
+// Define allowed origins
 const allowedOrigins = [
-  "https://663565ab4e766a5e4d38b338--melodious-kashata-228ce2.netlify.app",
-  "http://localhost:5173",
   "https://melodious-kashata-228ce2.netlify.app",
+  "http://localhost:5173",
 ];
+
+// CORS options
 const corsOptions = {
   origin: (origin, callback) => {
-    // Check if the origin is allowed
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -27,21 +32,24 @@ const corsOptions = {
   },
   credentials: true,
 };
+
+// Session middleware
 app.use(
   session({
     secret: process.env.JWT_SECRET_KEY,
     resave: false,
     saveUninitialized: true,
-    // Additional configuration options if needed
   })
 );
+
+// Enable CORS
 app.use(cors(corsOptions));
+
+// Other middleware
 app.use(express.json());
 app.use(cookieParser());
-config({ path: ".env" });
 
-//Router
-
+// Router
 app.use("/user", userRoute);
 app.use("/post", postRoute);
 app.use("/comment", commentRouter);
