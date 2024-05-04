@@ -38,18 +38,10 @@ export const login = async (req, res) => {
       process.env.JWT_SECRET_KEY,
       { expiresIn: age }
     );
-
+    req.session.token = token;
     const { password: userPassword, ...userInfo } = user;
 
-    res
-      .cookie("token", token, {
-        httpOnly: true,
-        maxAge: age,
-        secure: true,
-        sameSite: "strict",
-      })
-      .status(200)
-      .json(userInfo);
+    res.status(200).json(userInfo);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });

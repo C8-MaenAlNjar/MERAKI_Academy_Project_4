@@ -6,16 +6,15 @@ import likeRouter from "./routes/likes.js";
 import chatRouter from "./routes/chat.js";
 import messageRouter from "./routes/Message.js";
 import { config } from "dotenv";
-
+import session from "express-session";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
 const app = express();
 const allowedOrigins = [
-  
   "https://663565ab4e766a5e4d38b338--melodious-kashata-228ce2.netlify.app",
-  "http://localhost:5173", 
-  "https://melodious-kashata-228ce2.netlify.app"
+  "http://localhost:5173",
+  "https://melodious-kashata-228ce2.netlify.app",
 ];
 const corsOptions = {
   origin: (origin, callback) => {
@@ -28,6 +27,14 @@ const corsOptions = {
   },
   credentials: true,
 };
+app.use(
+  session({
+    secret: process.env.JWT_SECRET_KEY,
+    resave: false,
+    saveUninitialized: true,
+    // Additional configuration options if needed
+  })
+);
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
