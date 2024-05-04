@@ -4,9 +4,8 @@ export const verifyToken = (req, res, next) => {
   const token = req.cookies.token;
   const authHeader = req.headers.authorization;
 
-  if (!token) return res.status(401).json({ message: "Not Authenticated!" });
 
-  if (!authHeader && !token) {
+  if (!authHeader) {
     return res.status(401).json({ message: "Not Authenticated!" });
   }
   if (token) {
